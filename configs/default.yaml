@@ -1,0 +1,34 @@
+seed: 42
+
+data:
+  n_steps: 12000
+  n_features: 3
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  window_size: 60
+  horizon: 12
+  incident_min_len: 8
+  incident_max_len: 30
+  incident_count: 45
+
+model: 
+  input_size: 3
+  hidden_size: 64
+  num_layers: 1
+  dropout: 0.1
+
+training:
+  batch_size: 64
+  num_epochs: 20
+  learning_rate: 0.001
+  weight_decay: 1e-4
+  positive_class_weight: 3.0
+  threshold: 0.5
+
+paths:
+  model_path: results/model.pt
+  scaler_path: results/scaler.pkl
+  metrics_path: results/metrics.json
+  plot_path: results/predictions.png
+  data_path: data/synthetic_metrics.csv
