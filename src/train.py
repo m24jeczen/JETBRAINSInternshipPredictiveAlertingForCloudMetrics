@@ -41,12 +41,14 @@ def train():
         horizon=config["data"]["horizon"],
     )
 
+
     (X_train, y_train), (X_val, y_val), (X_test, y_test) = temporal_split(
         X,y, 
         train_ratio=config["data"]["train_ratio"],
         val_ratio=config["data"]["val_ratio"],
         test_ratio=config["data"]["test_ratio"],
     )
+
 
     scaler = fit_scaler_on_train(X_train)
     X_train = transform_windows(X_train, scaler)
@@ -70,7 +72,9 @@ def train():
         dropout = config["model"]["dropout"],
     ).to(device)
 
-    pos_weight = torch.tensor([config["training"]["positive_class_weight"]], device=device)
+    pos_weight = torch.tensor(
+        [float(config["training"]["positive_class_weight"])], device=device
+    )
     criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
     optimizer = torch.optim.Adam(
         model.parameters(),
@@ -107,9 +111,9 @@ def train():
             best_val_f1 = val_f1
             best_state = model.state_dict()
         
-        os.makedirs("results", exist_ok=True)
-        torch.save(best_state, config["paths"]["model_path"])
-        print(f"Best model saved to {config['paths']['model_path']}")
+            os.makedirs("results", exist_ok=True)
+            torch.save(best_state, config["paths"]["model_path"])
+            print(f"Best model saved to {config['paths']['model_path']}")
 
 if __name__ == "__main__":
     train()

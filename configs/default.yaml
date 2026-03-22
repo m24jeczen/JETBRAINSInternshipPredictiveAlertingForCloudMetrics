@@ -7,7 +7,7 @@ data:
   val_ratio: 0.15
   test_ratio: 0.15
   window_size: 60
-  horizon: 12
+  horizon: 6
   incident_min_len: 8
   incident_max_len: 30
   incident_count: 45
@@ -20,10 +20,10 @@ model:
 
 training:
   batch_size: 64
-  num_epochs: 20
+  epochs: 12
   learning_rate: 0.001
-  weight_decay: 1e-4
-  positive_class_weight: 3.0
+  weight_decay: 0.001
+  positive_class_weight: 1.0
   threshold: 0.5
 
 paths:

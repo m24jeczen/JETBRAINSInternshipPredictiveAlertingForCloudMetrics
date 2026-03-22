@@ -57,7 +57,7 @@ def generate_synthetic_cloud_metrcis(
         if n_features > 2:
             X[start:end, 2] -= 1.2 + rng.normal(0, 0.2, size=end-start)
 
-    cols = [f"metric{i}" for i in range(n_features)]
+    cols = [f"metric_{i}" for i in range(n_features)]
     df = pd.DataFrame(X, columns=cols)
     df['incident'] = incident
     df['t'] = np.arange(n_steps)
